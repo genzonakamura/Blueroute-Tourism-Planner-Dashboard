@@ -154,7 +154,7 @@ if pilihan_halaman == "📊 Pemantauan Kawasan (Kerajaan)":
 
     with col_left:
         st.markdown("##### 📍 Taburan Kesesakan Mengikut Lokasi")
-        fig_map = px.scatter_mapbox(
+        fig_map = px.scatter_map(
             df_live,
             lat="Lat", lon="Lon",
             color="Skor_TPI",
@@ -164,7 +164,7 @@ if pilihan_halaman == "📊 Pemantauan Kawasan (Kerajaan)":
             color_continuous_scale="YlOrRd",
             size_max=25,
             zoom=7.4,
-            mapbox_style="open-street-map"
+            map_style="open-street-map"
         )
         fig_map.update_layout(margin={"r":0,"t":0,"l":0,"b":0}, height=380)
         st.plotly_chart(fig_map, use_container_width=True)
