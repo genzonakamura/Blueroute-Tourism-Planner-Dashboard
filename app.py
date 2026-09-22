@@ -4,9 +4,6 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 
-# ---------------------------------------------------------
-# PAGE CONFIGURATION
-# ---------------------------------------------------------
 st.set_page_config(
     page_title="Blueroute Terengganu Tourism Planner Dashboard",
     page_icon="🌊",
@@ -14,9 +11,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ---------------------------------------------------------
-# STYLES & GLASSMORPHISM DESIGN SYSTEM
-# ---------------------------------------------------------
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
@@ -89,9 +83,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ---------------------------------------------------------
-# DATA ARCHITECTURE
-# ---------------------------------------------------------
+
 @st.cache_data
 def load_terengganu_data():
     data = pd.DataFrame({
@@ -123,7 +115,7 @@ df_historical = pd.DataFrame({
     'Category': ['Historical', 'Historical', 'Historical', 'Historical', 'Historical', 'Historical', 'Projected', 'Projected', 'Projected']
 })
 
-# Cross-version Plotly Map generator
+
 def build_interactive_map(df_map):
     try:
         fig = px.scatter_map(
@@ -154,9 +146,6 @@ def build_interactive_map(df_map):
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0}, height=440)
     return fig
 
-# ---------------------------------------------------------
-# SIDEBAR CONTROL & SIMULATOR
-# ---------------------------------------------------------
 st.sidebar.markdown("### 🌊 **BlueRoute Engine**")
 st.sidebar.caption("Award-Winning Terengganu Tourism Intelligence")
 st.sidebar.markdown("---")
@@ -185,9 +174,6 @@ def assign_status(score):
 
 df_live['Status'] = df_live['TPI_Score'].apply(assign_status)
 
-# ---------------------------------------------------------
-# MODULE 1: SPATIAL CROWD & CAPACITY TRACKER
-# ---------------------------------------------------------
 if nav_choice == "🗺️ Spatial Crowd & Capacity Tracker":
     st.markdown('<div class="hero-title">Blueroute Terengganu Tourism Planner Dashboard</div>', unsafe_allow_html=True)
     st.markdown('<div class="hero-subtitle">Real-Time Spatial Crowd Intelligence, Bottleneck Prevention & Eco-Load Monitoring</div>', unsafe_allow_html=True)
@@ -275,9 +261,7 @@ if nav_choice == "🗺️ Spatial Crowd & Capacity Tracker":
     else:
         st.success(f"✅ **{sel_loc}** is operating within healthy ecological limits (TPI Score: {loc_data['TPI_Score']}/100). Perfect condition for visitors.")
 
-# ---------------------------------------------------------
-# MODULE 2: INTERACTIVE ECO-ITINERARY QUEST
-# ---------------------------------------------------------
+
 elif nav_choice == "🎮 Interactive Eco-Itinerary Quest":
     st.markdown('<div class="hero-title">BlueRoute Eco-Itinerary Quest</div>', unsafe_allow_html=True)
     st.markdown('<div class="hero-subtitle">Design your dream Terengganu getaway, earn Green Badges, and minimize carbon footprint!</div>', unsafe_allow_html=True)
