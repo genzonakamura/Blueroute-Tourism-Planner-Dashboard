@@ -117,33 +117,28 @@ df_historical = pd.DataFrame({
 
 
 def build_interactive_map(df_map):
-    try:
-        fig = px.scatter_map(
-            df_map,
-            lat="Lat", lon="Lon",
-            color="TPI_Score",
-            size="Live_Visitors",
-            hover_name="Destination",
-            hover_data={"District": True, "TPI_Score": True, "Max_Capacity": True, "Lat": False, "Lon": False},
-            color_continuous_scale="Reds",
-            size_max=32,
-            zoom=7.3,
-            map_style="carto-positron"
-        )
-    except AttributeError:
-        fig = px.scatter_mapbox(
-            df_map,
-            lat="Lat", lon="Lon",
-            color="TPI_Score",
-            size="Live_Visitors",
-            hover_name="Destination",
-            hover_data={"District": True, "TPI_Score": True, "Max_Capacity": True, "Lat": False, "Lon": False},
-            color_continuous_scale="Reds",
-            size_max=32,
-            zoom=7.3,
-            mapbox_style="open-street-map"
-        )
-    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0}, height=440)
+    fig = px.scatter(
+        df_map,
+        x="Lon",
+        y="Lat",
+        color="TPI_Score",
+        size="Live_Visitors",
+        hover_name="Destination",
+        text="Destination",
+        color_continuous_scale="Reds",
+        size_max=30,
+        title="Terengganu Spatial Heatmap"
+    )
+    
+    fig.update_traces(textposition='top center')
+    fig.update_layout(
+        height=440,
+        margin={"r":0, "t":30, "l":0, "b":0},
+        xaxis_title="Longitude",
+        yaxis_title="Latitude",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)"
+    )
     return fig
 
 st.sidebar.markdown("### 🌊 **BlueRoute Engine**")
