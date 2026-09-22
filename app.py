@@ -128,7 +128,7 @@ def build_interactive_map(df_map):
             color_continuous_scale="Reds",
             size_max=32,
             zoom=7.3,
-            map_style="open-street-map"
+            map_style="carto-positron"
         )
     except AttributeError:
         fig = px.scatter_mapbox(
