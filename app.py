@@ -4,9 +4,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 
-# ---------------------------------------------------------
-# SETUP & SUASANA REKA BENTUK (CLEAN & HUMAN TOUCH)
-# ---------------------------------------------------------
+
 st.set_page_config(
     page_title="Terengganu EcoTourism Dashboard",
     page_icon="🌴",
@@ -14,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom Styling - Mengurangkan gaya "robotik" & bagi nampak macam dashboard profesional buatan manusia
+
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
@@ -43,7 +41,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# DATA REKOD & UNJURAN (TERENGGANU)
+# DATA (TERENGGANU)
 # ---------------------------------------------------------
 @st.cache_data
 def get_data():
@@ -78,9 +76,7 @@ df_trend = pd.DataFrame({
     'Status_Data': ['Data Sejarah (DOSM)', 'Data Sejarah (DOSM)', 'Data Sejarah (DOSM)', 'Data Sejarah (DOSM)', 'Data Sejarah (DOSM)', 'Data Sejarah (DOSM)', 'Unjuran Trend', 'Unjuran Trend', 'Unjuran Trend']
 })
 
-# ---------------------------------------------------------
-# MENU TEPI (SIDEBAR)
-# ---------------------------------------------------------
+
 st.sidebar.markdown("### 🌴 **Pelancongan Terengganu**")
 st.sidebar.caption("Sistem Pemantauan & Perancangan Mampan")
 st.sidebar.markdown("---")
@@ -95,20 +91,16 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("#### ⚙️ **Pelarasan Simulasi Musim Cuti**")
 tambahan_pelawat = st.sidebar.slider("Jangkaan Pertambahan Pelawat (%):", 0, 50, 10, step=5)
 
-# ---------------------------------------------------------
-# HALAMAN 1: PEMANTAUAN KAWASAN
-# ---------------------------------------------------------
+
 if pilihan_halaman == "📊 Pemantauan Kawasan (Kerajaan)":
     st.markdown('<div class="title-text">📊 Pemantauan Kapasiti & Risiko Pelancongan</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle-text">Gambaran keseluruhan paras kesesakan destinasi utama di Terengganu untuk tindakan kawalan awam.</div>', unsafe_allow_html=True)
 
-    # Pelarasan data ikut slider
     df_live = df.copy()
     df_live['Anggaran_Pelawat'] = (df_live['Anggaran_Pelawat'] * (1 + tambahan_pelawat/100)).astype(int)
     df_live['Nisbah_Kapasiti'] = df_live['Anggaran_Pelawat'] / df_live['Kapasiti_Maksimum']
     df_live['Skor_TPI'] = (df_live['Nisbah_Kapasiti'] * 70).clip(0, 100).round(1)
 
-    # Kad Indikator Utama (KPI)
     col1, col2, col3, col4 = st.columns(4)
     jum_pelawat = df_live['Anggaran_Pelawat'].sum()
     kawasan_padat = len(df_live[df_live['Skor_TPI'] >= 61])
@@ -189,9 +181,7 @@ if pilihan_halaman == "📊 Pemantauan Kawasan (Kerajaan)":
     else:
         st.success(f"✅ **{pilih_dest} (Skor TPI: {info['Skor_TPI']}/100)**: Keadaan persekitaran dan kepadatan berada dalam keadaan baik serta terkawal.")
 
-# ---------------------------------------------------------
-# HALAMAN 2: PERANCANG PERJALANAN (ECOROUTE)
-# ---------------------------------------------------------
+
 elif pilihan_halaman == "🗺️ Perancang Perjalanan (Pelancong)":
     st.markdown('<div class="title-text">🗺️ Perancang Perjalanan Mesra Alam</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle-text">Bantu anda merancang percutian yang selesa sambil mengurangkan jejak karbon di Terengganu.</div>', unsafe_allow_html=True)
@@ -232,9 +222,7 @@ elif pilihan_halaman == "🗺️ Perancang Perjalanan (Pelancong)":
             c_b.metric("Anggaran Pelepasan CO2", f"{13.2 * hari:.1f} kg", "Normal")
             c_c.metric("Status Kepadatan", tujuan['Status_Kesesakan'])
 
-# ---------------------------------------------------------
-# HALAMAN 3: UNJURAN & SDG
-# ---------------------------------------------------------
+
 elif pilihan_halaman == "📈 Trend Unjuran & Impak SDG":
     st.markdown('<div class="title-text">📈 Trend Ketibaan & Penjajaran SDG</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-header">Analisis trend pertumbuhan pelancongan domestik Terengganu dan sumbangannya kepada kelestarian.</div>', unsafe_allow_html=True)
