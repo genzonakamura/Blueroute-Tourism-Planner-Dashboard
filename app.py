@@ -147,7 +147,7 @@ def build_interactive_map(df_map):
     return fig
 
 st.sidebar.markdown("### 🌊 **BlueRoute Engine**")
-st.sidebar.caption("Award-Winning Terengganu Tourism Intelligence")
+st.sidebar.caption("Terengganu Tourism Intelligence")
 st.sidebar.markdown("---")
 
 nav_choice = st.sidebar.radio("📌 Navigation Hub:", [
